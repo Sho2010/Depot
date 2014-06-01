@@ -4,7 +4,7 @@ describe "line_items/show" do
   before(:each) do
     @line_item = assign(:line_item, stub_model(LineItem,
       :product_id => 1,
-      :card_id => 2
+      :cart_id => 2
     ))
   end
 

@@ -5,11 +5,11 @@ describe "line_items/index" do
     assign(:line_items, [
       stub_model(LineItem,
         :product_id => 1,
-        :card_id => 2
+        :cart_id => 2
       ),
       stub_model(LineItem,
         :product_id => 1,
-        :card_id => 2
+        :cart_id => 2
       )
     ])
   end
