@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Depot</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+  <title>Pragprog Booksオンラインストア</title>
+  <%= stylesheet_link_tag "application" %><!-- <label id="code.slt"/> -->
+  <%= javascript_include_tag "application" %><!-- <label id="code.jlt"/> -->
+  <%= csrf_meta_tags %><!-- <label id="code.csrf"/> -->
 </head>
-<body class='<%= controller.controller_name %>'>
-
-<%= yield %>
-
+<body class="<%= controller.controller_name %>">
+  <div id="banner">
+    <%= image_tag("my-icon-mini.png") %>
+    <%= @page_title || "Sho2010 Bookshelf" %><!-- <label id="code.depot.e.title"/> -->
+  </div>
+  <div id="columns">
+    <div id="side">
+      <ul>
+        <li><a href="http://www....">ホーム</a></li>
+        <li><a href="http://www..../faq">よくある質問</a></li>
+        <li><a href="http://www..../news">ニュース</a></li>
+        <li><a href="http://www..../contact">お問い合わせ</a></li>
+        <li>ようこそ現在時刻は<%= Time.now %>です。</li>
+      </ul>
+    </div>
+    <div id="main">
+      <%= yield %><!-- <label id="code.depot.e.include"/> -->
+    </div>
+  </div>
 </body>
 </html>
