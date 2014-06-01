@@ -2,9 +2,9 @@
 #---
 # Excerpted from "Agile Web Development with Rails, 4th Ed.",
 # published by The Pragmatic Bookshelf.
-# Copyrights apply to this code. It may not be used to create training material, 
+# Copyrights apply to this code. It may not be used to create training material,
 # courses, books, articles, and the like. Contact us if you are in doubt.
-# We make no guarantees that this code is fit for any purpose. 
+# We make no guarantees that this code is fit for any purpose.
 # Visit http://www.pragmaticprogrammer.com/titles/rails4 for more book information.
 #
 # 日本語版については http://ssl.ohmsha.co.jp/cgi-bin/menu.cgi?ISBN=978-4-274-06866-9
@@ -55,7 +55,7 @@ class ProductsControllerTest < ActionController::TestCase
 
   test "should update product" do
     put :update, id: @product.to_param, product: @update
-    assert_redirected_to product_path(assigns(:product))
+    assert_redirected_to action: 'index', notice: 'Product was successfully updated.'
   end
 
   # ...
