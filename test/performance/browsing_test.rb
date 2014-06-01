@@ -9,16 +9,15 @@
 #
 # 日本語版については http://ssl.ohmsha.co.jp/cgi-bin/menu.cgi?ISBN=978-4-274-06866-9
 #---
-ENV["RAILS_ENV"] = "test"
-require File.expand_path('../../config/environment', __FILE__)
-require 'rails/test_help'
+require 'test_helper'
+require 'rails/performance_test_help'
 
-class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
-  fixtures :all
+class BrowsingTest < ActionDispatch::PerformanceTest
+  # Refer to the documentation for all available options
+  # self.profile_options = { :runs => 5, :metrics => [:wall_time, :memory]
+  #                          :output => 'tmp/performance', :formats => [:flat] }
 
-  # Add more helper methods to be used by all tests here...
+  def test_homepage
+    get '/'
+  end
 end
