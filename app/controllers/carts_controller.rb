@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, only: [:show, :edit, :update]
 
   # GET /carts
   # GET /carts.json
@@ -59,8 +59,8 @@ class CartsController < ApplicationController
     session[:cart_id] = nil
 
     respond_to do |format|
-      format.html { redirect_to store_url,
-        notice: 'カートは現在空です' }
+      format.html { redirect_to store_url}
+      format.js   {  }
       format.json { head :ok }
     end
   end

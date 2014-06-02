@@ -8,20 +8,12 @@
 
  日本語版については http://ssl.ohmsha.co.jp/cgi-bin/menu.cgi?ISBN=978-4-274-06866-9
 -->
-<% if notice %>
-<p id="notice"><%= notice %></p>
+<% if line_item == @current_item %>
+<tr id="current_item">
+<% else %>
+<tr>
 <% end %>
-
-<h1>商品カタログ</h1>
-
-<% @products.each do |product| %>
-  <div class="entry">
-    <%= image_tag(product.image_url) %>
-    <h3><%= product.title %></h3>
-    <%= sanitize(product.description) %>
-    <div class="price_line">
-      <span class="price"><%= number_to_currency(product.price ,unit:'￥', :precision => 0) %>-</span>
-      <%= button_to 'カートに入れる', line_items_path(product_id: product), remote: true %>
-    </div>
-  </div>
-<% end %>
+  <td><%= line_item.quantity %>&times;</td>
+  <td><%= line_item.product.title %></td>
+  <td class="item_price"><%= number_to_currency(line_item.total_price, unit:'￥', :precision => 0) %></td>
+</tr>
