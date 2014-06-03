@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
         #利用済みカートの処分
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-
+        OrderNotifier.received(@order).deliver #メール送信イベント通知
         format.html { redirect_to store_url, notice: 'ご注文ありがとうございます' }
         format.json { render :show, status: :created, location: @order }
       else
