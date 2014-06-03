@@ -1,5 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+
+<% @order.line_items.each do |line_item| %>
+    <p><%= render line_item %></p>
+<% end %>
+
+
 <p>
   <strong>Name:</strong>
   <%= @order.name %>

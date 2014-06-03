@@ -14,7 +14,18 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+    @cart = current_cart
+    if @cart.line_items.empty?
+      redirect_to store_url, notice: "カートは空です"
+      return
+    end
+
     @order = Order.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @order }
+    end
   end
 
   # GET /orders/1/edit
@@ -25,12 +36,18 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    @order.add_line_items_from_cart(current_cart)
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        #利用済みカートの処分
+        Cart.destroy(session[:cart_id])
+        session[:cart_id] = nil
+
+        format.html { redirect_to store_url, notice: 'ご注文ありがとうございます' }
         format.json { render :show, status: :created, location: @order }
       else
+        @cart = current_cart
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
