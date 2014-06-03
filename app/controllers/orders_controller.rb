@@ -1,10 +1,14 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
+  PER_PAGE = 10
+
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.all.
+                order('created_at desc').  #ここのorderは並び順という意味
+                paginate(page:params[:page], per_page: PER_PAGE)
   end
 
   # GET /orders/1

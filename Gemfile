@@ -40,6 +40,7 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'therubyracer'
+gem 'will_paginate'
 
 group :development do
   # Use sqlite3 as the database for Active Record

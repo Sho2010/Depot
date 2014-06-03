@@ -101,3 +101,29 @@ view
 ~~~
     <td><%= button_to '減らす',decrement_line_item_path(line_item), method: :post %></td>
 ~~~
+
+### will_paginate gemの変更
+
+これまた4.1の変更点っぽい
+
+列車本サンプル
+~~~ruby
+  def index
+    @orders = Order.paginate :page=>params[:page], :order=>'created_at desc',
+      :per_page => 10
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @orders }
+    end
+  end
+~~~
+
+俺の直したソース
+~~~ruby
+  def index
+    @orders = Order.all.
+                order('created_at desc').  #ここのorderは並び順という意味
+                paginate(page:params[:page], per_page: PER_PAGE)
+  end
+~~~
