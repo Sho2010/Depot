@@ -15,6 +15,9 @@ class ApplicationController < ActionController::Base
     end
 
     def authorize
+      #管理者userが一人もいないときは認証を素通りさせる
+      return if User.count.zero?
+
       unless User.find_by_id(session[:user_id])
         redirect_to login_url, notice: "ログインしてください"
       end
