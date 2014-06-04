@@ -19,13 +19,20 @@
         <% end %>
       <% end %>
       <ul>
-      
         <li><%= link_to 'ホーム' %></li>
-        <li><a href="http://www..../faq">よくある質問</a></li>
-        <li><a href="http://www..../news">ニュース</a></li>
-        <li><a href="http://www..../contact">お問い合わせ</a></li>
+        <li><a href="#">よくある質問</a></li>
+        <li><a href="#">ニュース</a></li>
+        <li><a href="#">お問い合わせ</a></li>
         <li>ようこそ現在時刻は<%= Time.now %>です。</li>
       </ul>
+      <% if session[:user_id] %>
+        <ul>
+          <li><%= link_to '注文',   orders_path   %></li>
+          <li><%= link_to '商品',   products_path %></li>
+          <li><%= link_to 'ユーザ', users_path    %></li>
+        </ul>
+        <%= button_to 'ログアウト', logout_path, method: :delete   %>
+      <% end %>
     </div>
     <div id="main">
       <%= yield %><!-- <label id="code.depot.e.include"/> -->
