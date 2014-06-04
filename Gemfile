@@ -41,6 +41,7 @@ gem 'spring',        group: :development
 
 gem 'therubyracer'
 gem 'will_paginate'
+gem 'bcrypt', '~> 3.1.7'
 
 group :development do
   # Use sqlite3 as the database for Active Record

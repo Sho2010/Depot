@@ -127,3 +127,60 @@ view
                 paginate(page:params[:page], per_page: PER_PAGE)
   end
 ~~~
+
+### password_digestを持ったユーザモデルとhas_secure_password
+
+gemの追加はまぁいい
+
+`Gemfile`
+~~~
+gem 'bcrypt', '~> 3.1.7'
+~~~
+
+ここが一番ハマった恐らくrails4になって変わったstrong parametersの影響だと思う
+modelにhas_secure_password書いたあとrails3なら素直に書けばいいんだろうけど
+rails4ではそうはいかないらしい
+
+今後もActiveRecordのカラムに存在しないformデータを追加する場合は注意しようとおもう。
+
+newのviewにpassword,password_confirmationを作ってやってもどうもうまく値が読めてないらしくて
+ブランクにしてんじゃねーよってエラーを吐く
+解決策としてはcontrollerにポイントがあった
+
+ポイントは２つ
+* `user_params`で:password, :password_confirmationをちゃんと追加してやること(scaffoldしただけだと生成されないのがポイント)
+* User.new(user_params)では存在しないカラムには値が入らないっぽいので手動で入れてやること
+
+controller
+
+~~~
+  # POST /users
+  # POST /users.json
+  def create
+    @user = User.new(user_params)
+    @user.password = user_params[:password]
+    @user.password_confirmation = user_params[:password_confirmation]
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to users_url, notice: "ユーザ#{@user.name}を作成しました。" }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  #...
+
+  private
+    
+    #...
+    
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def user_params
+      params.require(:user).permit(:name, :password, :password_confirmation)
+    end
+
+~~~
