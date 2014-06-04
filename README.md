@@ -184,3 +184,11 @@ controller
     end
 
 ~~~
+
+### paramsの型
+
+ActiveRecord使ってると勝手にparamをいいかんじの型にしてくれてるが
+
+* paramsの中身は必ずstring
+
+何らかの理由でparamsの中身を単純に比較すると悲しい感じになる なった。
