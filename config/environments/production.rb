@@ -92,7 +92,6 @@ Depot::Application.configure do
       authentication: "plain",
       user_name:      ENV['MAIL_USER_NAME'],
       password:       ENV['MAIL_PASSWORD'],
-      domain:         'heroku.com',
       enable_starttls_auto: true
   }
 
